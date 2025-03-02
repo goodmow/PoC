@@ -1,0 +1,43 @@
+
+### Description
+A memory leak in the parseSWF_ENABLEDEBUGGER2 function of libming v0.4.8, where memory allocated for reading strings is not properly deallocated after parsing, leading to memory leaks during the processing of SWF files.
+
+### Environment
+Ubuntu 20.04, 64 bit
+libming-v0.4.8
+
+### ASAN report
+
+=================================================================
+==3619801==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 256 byte(s) in 1 object(s) allocated from:
+    #0 0x2e006d in malloc (/home/goodmow/Documents/Titan/benchmark/libming-048-address/obj-bc/bin/swftocxx+0x2e006d)
+    #1 0x34fa55 in readString /work/util/read.c:272:17
+    #2 0x34587a in parseSWF_ENABLEDEBUGGER2 /work/util/parser.c:2461:25
+    #3 0x31ec43 in blockParse /work/util/blocktypes.c:145:14
+    #4 0x31e4e0 in readMovie /work/util/main.c:269:11
+    #5 0x31d91d in main /work/util/main.c:354:2
+    #6 0x7ff7a0829d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16
+
+Direct leak of 46 byte(s) in 1 object(s) allocated from:
+    #0 0x2e006d in malloc (/home/goodmow/Documents/Titan/benchmark/libming-048-address/obj-bc/bin/swftocxx+0x2e006d)
+    #1 0x34f96b in readBytes /work/util/read.c:252:17
+    #2 0x33c4cc in parseSWF_DEFINEBITSPTR /work/util/parser.c:1518:3
+    #3 0x31ec43 in blockParse /work/util/blocktypes.c:145:14
+    #4 0x31e4e0 in readMovie /work/util/main.c:269:11
+    #5 0x31d91d in main /work/util/main.c:354:2
+    #6 0x7ff7a0829d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16
+
+Direct leak of 46 byte(s) in 3 object(s) allocated from:
+    #0 0x2e006d in malloc (/home/goodmow/Documents/Titan/benchmark/libming-048-address/obj-bc/bin/swftocxx+0x2e006d)
+    #1 0x34f96b in readBytes /work/util/read.c:252:17
+    #2 0x34ec88 in parseSWF_UNKNOWNBLOCK /work/util/parser.c:3555:28
+    #3 0x31ec6c in blockParse /work/util/blocktypes.c:148:10
+    #4 0x31e4e0 in readMovie /work/util/main.c:269:11
+    #5 0x31d91d in main /work/util/main.c:354:2
+    #6 0x7ff7a0829d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16
+
+SUMMARY: AddressSanitizer: 348 byte(s) leaked in 5 allocation(s).
+
+### PoC

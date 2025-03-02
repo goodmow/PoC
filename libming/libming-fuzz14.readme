@@ -1,0 +1,34 @@
+### Description
+
+
+
+### Environment
+Ubuntu 20.04, 64 bit
+libming-v0.4.8
+
+### ASAN report
+
+=================================================================
+==2189586==ERROR: AddressSanitizer: SEGV on unknown address 0x000000000000 (pc 0x00000032a84b bp 0x7ffe4c53f740 sp 0x7ffe4c53f680 T0)
+==2189586==The signal is caused by a READ memory access.
+==2189586==Hint: address points to the zero page.
+    #0 0x32a84b in getString /work/util/decompile.c:380:22
+    #1 0x328c2d in decompileDUPLICATECLIP /work/util/decompile.c:3123:2
+    #2 0x3205c9 in decompileAction /work/util/decompile.c:3500:10
+    #3 0x3297d3 in decompileActions /work/util/decompile.c:3535:6
+    #4 0x32d335 in decompile5Action /work/util/decompile.c:3558:2
+    #5 0x315d84 in outputSWF_DOACTION /work/util/outputscript.c:1552:29
+    #6 0x319948 in outputBlock /work/util/outputscript.c:2083:4
+    #7 0x31e3fc in readMovie /work/util/main.c:281:4
+    #8 0x31d76d in main /work/util/main.c:354:2
+    #9 0x704266829d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16
+    #10 0x704266829e3f in __libc_start_main csu/../csu/libc-start.c:392:3
+    #11 0x26532d in _start (/home/goodmow/Documents/Titan/benchmark/libming-048-address/obj-bc/bin/swftoperl+0x26532d)
+
+AddressSanitizer can not provide additional info.
+SUMMARY: AddressSanitizer: SEGV /work/util/decompile.c:380:22 in getString
+==2189586==ABORTING
+
+
+### PoC
+

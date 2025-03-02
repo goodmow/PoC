@@ -1,0 +1,28 @@
+### Description
+An allocation-size-too-big error occurs in the parseSWF_DEFINEBINARYDATA function of libming v0.48 when attempting to allocate an excessively large block of memory, exceeding the maximum supported size by the allocator. This issue arises during the parsing of SWF files containing binary data, leading to a failed memory allocation request and causing the application to abort.
+
+
+### Environment
+Ubuntu 20.04, 64 bit
+libming-v0.4.8
+
+### ASAN report
+
+=================================================================
+==1520162==ERROR: AddressSanitizer: requested allocation size 0xffffffffffffffff (0x800 after adjustments for alignment, red zones etc.) exceeds maximum supported size of 0x10000000000 (thread T0)
+    #0 0x2e01ed in malloc (/home/goodmow/Documents/Titan/benchmark/libming-048-address/obj-bc/bin/swftoperl+0x2e01ed)
+    #1 0x34f7db in readBytes /work/util/read.c:252:17
+    #2 0x34e3d2 in parseSWF_DEFINEBINARYDATA /work/util/parser.c:3512:28
+    #3 0x31ea93 in blockParse /work/util/blocktypes.c:145:14
+    #4 0x31e330 in readMovie /work/util/main.c:269:11
+    #5 0x31d76d in main /work/util/main.c:354:2
+    #6 0x7da824e29d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16
+
+==1520162==HINT: if you don't care about these errors you may set allocator_may_return_null=1
+SUMMARY: AddressSanitizer: allocation-size-too-big (/home/goodmow/Documents/Titan/benchmark/libming-048-address/obj-bc/bin/swftoperl+0x2e01ed) in malloc
+==1520162==ABORTING
+
+
+
+### PoC
+

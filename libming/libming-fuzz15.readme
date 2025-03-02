@@ -1,0 +1,45 @@
+### Description
+A segmentation fault (SEGV) in the decompileGETPROPERTY function of libming v0.48 is triggered by a READ memory access to an invalid address pointing to the zero page. This issue occurs during the decompilation process of SWF files, specifically when handling GETPROPERTY actions. 
+
+
+
+### Environment
+Ubuntu 20.04, 64 bit
+libming-v0.4.8
+
+### ASAN report
+
+=================================================================
+==2193967==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 41144 byte(s) in 1 object(s) allocated from:
+    #0 0x2e0362 in calloc (/home/goodmow/Documents/Titan/benchmark/libming-048-address/obj-bc/bin/swftoperl+0x2e0362)
+    #1 0x33b285 in parseSWF_MORPHFILLSTYLES /work/util/parser.c:827:28
+    #2 0x343402 in parseSWF_DEFINEMORPHSHAPE /work/util/parser.c:2186:3
+    #3 0x31ea93 in blockParse /work/util/blocktypes.c:145:14
+    #4 0x31e330 in readMovie /work/util/main.c:269:11
+    #5 0x31d76d in main /work/util/main.c:354:2
+    #6 0x7b3d26c29d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16
+
+Direct leak of 36432 byte(s) in 1 object(s) allocated from:
+    #0 0x2e0362 in calloc (/home/goodmow/Documents/Titan/benchmark/libming-048-address/obj-bc/bin/swftoperl+0x2e0362)
+    #1 0x339d28 in parseSWF_FILLSTYLEARRAY /work/util/parser.c:620:23
+    #2 0x33b80d in parseSWF_SHAPEWITHSTYLE /work/util/parser.c:867:3
+    #3 0x343ad8 in parseSWF_DEFINESHAPE /work/util/parser.c:2235:3
+    #4 0x31ea93 in blockParse /work/util/blocktypes.c:145:14
+    #5 0x31e330 in readMovie /work/util/main.c:269:11
+    #6 0x31d76d in main /work/util/main.c:354:2
+    #7 0x7b3d26c29d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16
+
+Direct leak of 9944 byte(s) in 351 object(s) allocated from:
+    #0 0x2e01ed in malloc (/home/goodmow/Documents/Titan/benchmark/libming-048-address/obj-bc/bin/swftoperl+0x2e01ed)
+    #1 0x34f7db in readBytes /work/util/read.c:252:17
+    #2 0x34eaf8 in parseSWF_UNKNOWNBLOCK /work/util/parser.c:3555:28
+    #3 0x31eabc in blockParse /work/util/blocktypes.c:148:10
+    #4 0x31e330 in readMovie /work/util/main.c:269:11
+    #5 0x31d76d in main /work/util/main.c:354:2
+    #6 0x7b3d26c29d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16
+
+
+### PoC
+

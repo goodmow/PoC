@@ -1,0 +1,38 @@
+### Description
+
+
+
+### Environment
+Ubuntu 20.04, 64 bit
+libming-v0.4.8
+
+### ASAN report
+
+文件: /home/goodmow/Documents/Titan/benchmark/libming-048-address/util/obj-bc/bin/fuzz_out/crashes/id:000156,34698684,sig:11,src:003527+002732,op:splice,rep:2
+
+=================================================================
+==2169957==ERROR: AddressSanitizer: SEGV on unknown address 0x000000000000 (pc 0x000000329ada bp 0x7ffe863db940 sp 0x7ffe863db910 T0)
+==2169957==The signal is caused by a READ memory access.
+==2169957==Hint: address points to the zero page.
+    #0 0x329ada in getName /work/util/decompile.c:457:22
+    #1 0x32184a in decompileGETMEMBER /work/util/decompile.c:1753:10
+    #2 0x3200dd in decompileAction /work/util/decompile.c:3332:3
+    #3 0x3297d3 in decompileActions /work/util/decompile.c:3535:6
+    #4 0x32d335 in decompile5Action /work/util/decompile.c:3558:2
+    #5 0x315d84 in outputSWF_DOACTION /work/util/outputscript.c:1552:29
+    #6 0x319948 in outputBlock /work/util/outputscript.c:2083:4
+    #7 0x31e3fc in readMovie /work/util/main.c:281:4
+    #8 0x31d76d in main /work/util/main.c:354:2
+    #9 0x75634ce29d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16
+    #10 0x75634ce29e3f in __libc_start_main csu/../csu/libc-start.c:392:3
+    #11 0x26532d in _start (/home/goodmow/Documents/Titan/benchmark/libming-048-address/obj-bc/bin/swftoperl+0x26532d)
+
+AddressSanitizer can not provide additional info.
+SUMMARY: AddressSanitizer: SEGV /work/util/decompile.c:457:22 in getName
+==2169957==ABORTING
+-----------------------------
+==============================
+
+
+### PoC
+
