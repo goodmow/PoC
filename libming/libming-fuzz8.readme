@@ -1,11 +1,11 @@
+# bug8
+
 ### Description
 A segmentation fault (SEGV) in the decompileCALLMETHOD function of libming v0.48 is triggered by a READ memory access to an invalid address pointing to the zero page. This issue occurs during the decompilation process of SWF files, specifically when handling CALLMETHOD actions.
 
 
 
-### Environment
-Ubuntu 20.04, 64 bit
-libming-v0.4.8
+
 
 ### ASAN report
 
@@ -28,3 +28,4 @@ libming-v0.4.8
 
 ### PoC
 
+https://github.com/goodmow/PoC/blob/main/libming/poc8

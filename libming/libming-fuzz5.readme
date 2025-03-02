@@ -1,11 +1,10 @@
+# bug5
 ### Description
 A memory leak in the parseSWF_INITACTION function of libming v0.48 occurs due to improper handling of memory reallocation, resulting in a direct memory leak during the parsing of SWF files. 
 
 
 
-### Environment
-Ubuntu 20.04, 64 bit
-libming-v0.4.8
+
 
 ### ASAN report
 
@@ -23,4 +22,6 @@ Direct leak of 160 byte(s) in 1 object(s) allocated from:
 SUMMARY: AddressSanitizer: 160 byte(s) leaked in 1 allocation(s).
 
 ### PoC
+
+https://github.com/goodmow/PoC/blob/main/libming/poc5
 

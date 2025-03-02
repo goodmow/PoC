@@ -1,14 +1,12 @@
+# bug15
 ### Description
-A segmentation fault (SEGV) in the decompileGETPROPERTY function of libming v0.48 is triggered by a READ memory access to an invalid address pointing to the zero page. This issue occurs during the decompilation process of SWF files, specifically when handling GETPROPERTY actions. 
+A memory leak in the parseSWF_MORPHFILLSTYLES function of libming v0.48, where memory allocated for processing MORPHFILLSTYLES is not properly deallocated after parsing, leading to memory leaks during the processing of SWF files.
 
 
 
-### Environment
-Ubuntu 20.04, 64 bit
-libming-v0.4.8
 
 ### ASAN report
-
+```
 =================================================================
 ==2193967==ERROR: LeakSanitizer: detected memory leaks
 
@@ -39,7 +37,9 @@ Direct leak of 9944 byte(s) in 351 object(s) allocated from:
     #4 0x31e330 in readMovie /work/util/main.c:269:11
     #5 0x31d76d in main /work/util/main.c:354:2
     #6 0x7b3d26c29d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16
-
+```
 
 ### PoC
 
+
+https://github.com/goodmow/PoC/blob/main/libming/poc15

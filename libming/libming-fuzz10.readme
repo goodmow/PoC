@@ -1,10 +1,9 @@
+# bug10
 ### Description
 An allocation-size-too-big error occurs in the parseSWF_DEFINEBINARYDATA function of libming v0.48 when attempting to allocate an excessively large block of memory, exceeding the maximum supported size by the allocator. This issue arises during the parsing of SWF files containing binary data, leading to a failed memory allocation request and causing the application to abort.
 
 
-### Environment
-Ubuntu 20.04, 64 bit
-libming-v0.4.8
+
 
 ### ASAN report
 
@@ -26,3 +25,4 @@ SUMMARY: AddressSanitizer: allocation-size-too-big (/home/goodmow/Documents/Tita
 
 ### PoC
 
+https://github.com/goodmow/PoC/blob/main/libming/poc10

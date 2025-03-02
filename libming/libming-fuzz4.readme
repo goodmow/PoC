@@ -1,12 +1,11 @@
+# bug4
 ### Description
 A segmentation fault (SEGV) in the decompileRETURN function of libming v0.4.8 is triggered by a READ memory access to an invalid address pointing to the zero page. This issue occurs during the decompilation process of SWF files, specifically when handling return actions.
 
-### Environment
-Ubuntu 20.04, 64 bit
-libming-v0.4.8
+
 
 ### ASAN report
-
+```
 =================================================================
 ==110874==ERROR: AddressSanitizer: SEGV on unknown address 0x000000000010 (pc 0x0000003299c5 bp 0x7ffde1bce5d0 sp 0x7ffde1bce5a0 T0)
 ==110874==The signal is caused by a READ memory access.
@@ -27,6 +26,7 @@ libming-v0.4.8
 AddressSanitizer can not provide additional info.
 SUMMARY: AddressSanitizer: SEGV /work/util/decompile.c:424:15 in getName
 ==110874==ABORTING
-
+```
 ### PoC
 
+https://github.com/goodmow/PoC/blob/main/libming/poc4

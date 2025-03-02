@@ -1,9 +1,8 @@
+# bug3
 ### Description
 A memory leak in the parseSWF_PLACEOBJECT3 function of libming v0.4.8 occurs due to improper handling of memory allocation when reading strings, resulting in a direct memory leak during the parsing of SWF files.
 
-### Environment
-Ubuntu 20.04, 64 bit
-libming-v0.4.8
+
 
 ### ASAN report
 
@@ -67,3 +66,4 @@ SUMMARY: AddressSanitizer: 1408 byte(s) leaked in 61 allocation(s).
 
 ### PoC
 
+https://github.com/goodmow/PoC/blob/main/libming/poc3

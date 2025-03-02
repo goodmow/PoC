@@ -1,14 +1,11 @@
+# bug12
 ### Description
 
+A segmentation fault (SEGV) in the decompileGETMEMBER function of libming v0.48 is triggered by a READ memory access to an invalid address pointing to the zero page. This issue occurs during the decompilation process of SWF files, specifically when handling GETMEMBER actions.
 
 
-### Environment
-Ubuntu 20.04, 64 bit
-libming-v0.4.8
 
 ### ASAN report
-
-文件: /home/goodmow/Documents/Titan/benchmark/libming-048-address/util/obj-bc/bin/fuzz_out/crashes/id:000156,34698684,sig:11,src:003527+002732,op:splice,rep:2
 
 =================================================================
 ==2169957==ERROR: AddressSanitizer: SEGV on unknown address 0x000000000000 (pc 0x000000329ada bp 0x7ffe863db940 sp 0x7ffe863db910 T0)
@@ -36,3 +33,4 @@ SUMMARY: AddressSanitizer: SEGV /work/util/decompile.c:457:22 in getName
 
 ### PoC
 
+https://github.com/goodmow/PoC/blob/main/libming/poc12

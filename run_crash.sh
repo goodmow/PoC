@@ -1,24 +1,22 @@
 #!/bin/bash
 
 # afl minilize
-# afl-cmin -i crashes -o crashes_min -C -m none -- ../mp4fragment @@ /dev/null
+# afl-cmin -i crashes -o crashes_min -C -m none -- ../program @@ /dev/null
 
 
-# 定义输出文件
 OUTPUT_FILE="crash_reports_$(date).txt"
 
-# 清空或创建输出文件
 > "$OUTPUT_FILE"
 
-# 遍历从 1 到 255 的数字
+
 for i in $(seq 130 255); do
     num=$(printf "%06d" "$i")
     echo "正在处理文件: $num"
-    # 构建文件路径模式
+
     pre_out="/home/goodmow/Documents/Titan/benchmark/libming-048-address/util/obj-bc/bin/fuzz_out"
     crash_file_pattern=$pre_out"/crashes/id:$num*"
     for crash_file in $crash_file_pattern; do
-        # 查找并处理所有匹配的文件
+
         if [ -f "$crash_file" ]; then
             echo "正在处理文件: $crash_file" 
             {
