@@ -1,0 +1,28 @@
+### Description
+An out-of-memory error occurs in the parseABC_STRING_INFO function of libming v0.48 when attempting to allocate a large block of memory while parsing ABC (ActionScript Bytecode) data. This issue arises during the processing of SWF files containing such bytecode, leading to allocator exhaustion. The failure to manage memory allocation effectively can result in the application aborting and may cause Denial of Service (DoS)
+
+
+
+### Environment
+Ubuntu 20.04, 64 bit
+libming-v0.4.8
+
+=================================================================
+==790345==ERROR: AddressSanitizer: allocator is out of memory trying to allocate 0x743feb5c6 bytes
+    #0 0x2e01ed in malloc (/home/goodmow/Documents/Titan/benchmark/libming-048-address/obj-bc/bin/swftoperl+0x2e01ed)
+    #1 0x34f7db in readBytes /work/util/read.c:252:17
+    #2 0x34a97c in parseABC_STRING_INFO /work/util/parser.c:3068:30
+    #3 0x34b50d in parseABC_CONSTANT_POOL /work/util/parser.c:3179:5
+    #4 0x34d510 in parseABC_FILE /work/util/parser.c:3430:3
+    #5 0x34dfaa in parseSWF_DOABC /work/util/parser.c:3485:3
+    #6 0x31ea93 in blockParse /work/util/blocktypes.c:145:14
+    #7 0x31e330 in readMovie /work/util/main.c:269:11
+    #8 0x31d76d in main /work/util/main.c:354:2
+    #9 0x75d8a2229d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16
+
+==790345==HINT: if you don't care about these errors you may set allocator_may_return_null=1
+SUMMARY: AddressSanitizer: out-of-memory (/home/goodmow/Documents/Titan/benchmark/libming-048-address/obj-bc/bin/swftoperl+0x2e01ed) in malloc
+==790345==ABORTING
+
+### PoC
+

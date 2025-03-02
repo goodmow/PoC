@@ -1,0 +1,32 @@
+### Description
+A segmentation fault (SEGV) in the decompileRETURN function of libming v0.4.8 is triggered by a READ memory access to an invalid address pointing to the zero page. This issue occurs during the decompilation process of SWF files, specifically when handling return actions.
+
+### Environment
+Ubuntu 20.04, 64 bit
+libming-v0.4.8
+
+### ASAN report
+
+=================================================================
+==110874==ERROR: AddressSanitizer: SEGV on unknown address 0x000000000010 (pc 0x0000003299c5 bp 0x7ffde1bce5d0 sp 0x7ffde1bce5a0 T0)
+==110874==The signal is caused by a READ memory access.
+==110874==Hint: address points to the zero page.
+    #0 0x3299c5 in getName /work/util/decompile.c:424:15
+    #1 0x32390f in decompileRETURN /work/util/decompile.c:1921:3
+    #2 0x32037d in decompileAction /work/util/decompile.c:3369:3
+    #3 0x329963 in decompileActions /work/util/decompile.c:3535:6
+    #4 0x32d4c5 in decompile5Action /work/util/decompile.c:3558:2
+    #5 0x315aa4 in outputSWF_DOACTION /work/util/outputscript.c:1552:29
+    #6 0x3197e8 in outputBlock /work/util/outputscript.c:2083:4
+    #7 0x31e5ac in readMovie /work/util/main.c:281:4
+    #8 0x31d91d in main /work/util/main.c:354:2
+    #9 0x7524a1829d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16
+    #10 0x7524a1829e3f in __libc_start_main csu/../csu/libc-start.c:392:3
+    #11 0x2651ad in _start (/home/goodmow/Documents/Titan/benchmark/libming-048-address/obj-bc/bin/swftocxx+0x2651ad)
+
+AddressSanitizer can not provide additional info.
+SUMMARY: AddressSanitizer: SEGV /work/util/decompile.c:424:15 in getName
+==110874==ABORTING
+
+### PoC
+

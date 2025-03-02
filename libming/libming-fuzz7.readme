@@ -1,0 +1,148 @@
+### Description
+A memory leak in the parseSWF_MORPHLINESTYLES function of libming v0.48 occurs due to improper handling of memory allocation, resulting in a direct memory leak during the parsing of SWF files. 
+
+
+### Environment
+Ubuntu 20.04, 64 bit
+libming-v0.4.8
+
+### ASAN report
+
+==1154276==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 74880 byte(s) in 1 object(s) allocated from:
+    #0 0x2e01ed in malloc (/home/goodmow/Documents/Titan/benchmark/libming-048-address/obj-bc/bin/swftoperl+0x2e01ed)
+    #1 0x33b01d in parseSWF_MORPHLINESTYLES /work/util/parser.c:755:31
+    #2 0x343855 in parseSWF_DEFINEMORPHSHAPE2 /work/util/parser.c:2217:3
+    #3 0x31ea93 in blockParse /work/util/blocktypes.c:145:14
+    #4 0x31e330 in readMovie /work/util/main.c:269:11
+    #5 0x31d76d in main /work/util/main.c:354:2
+    #6 0x7c439a629d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16
+
+Direct leak of 63888 byte(s) in 1 object(s) allocated from:
+    #0 0x2e0362 in calloc (/home/goodmow/Documents/Titan/benchmark/libming-048-address/obj-bc/bin/swftoperl+0x2e0362)
+    #1 0x339d28 in parseSWF_FILLSTYLEARRAY /work/util/parser.c:620:23
+    #2 0x33b80d in parseSWF_SHAPEWITHSTYLE /work/util/parser.c:867:3
+    #3 0x343ad8 in parseSWF_DEFINESHAPE /work/util/parser.c:2235:3
+    #4 0x31ea93 in blockParse /work/util/blocktypes.c:145:14
+    #5 0x31e330 in readMovie /work/util/main.c:269:11
+    #6 0x31d76d in main /work/util/main.c:354:2
+    #7 0x7c439a629d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16
+
+Direct leak of 37592 byte(s) in 1 object(s) allocated from:
+    #0 0x2e0362 in calloc (/home/goodmow/Documents/Titan/benchmark/libming-048-address/obj-bc/bin/swftoperl+0x2e0362)
+    #1 0x33b285 in parseSWF_MORPHFILLSTYLES /work/util/parser.c:827:28
+    #2 0x34383c in parseSWF_DEFINEMORPHSHAPE2 /work/util/parser.c:2216:3
+    #3 0x31ea93 in blockParse /work/util/blocktypes.c:145:14
+    #4 0x31e330 in readMovie /work/util/main.c:269:11
+    #5 0x31d76d in main /work/util/main.c:354:2
+    #6 0x7c439a629d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16
+
+Direct leak of 2226 byte(s) in 82 object(s) allocated from:
+    #0 0x2e01ed in malloc (/home/goodmow/Documents/Titan/benchmark/libming-048-address/obj-bc/bin/swftoperl+0x2e01ed)
+    #1 0x34f7db in readBytes /work/util/read.c:252:17
+    #2 0x34eaf8 in parseSWF_UNKNOWNBLOCK /work/util/parser.c:3555:28
+    #3 0x31eabc in blockParse /work/util/blocktypes.c:148:10
+    #4 0x31e330 in readMovie /work/util/main.c:269:11
+    #5 0x31d76d in main /work/util/main.c:354:2
+    #6 0x7c439a629d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16
+
+Direct leak of 1116 byte(s) in 1 object(s) allocated from:
+    #0 0x2e01ed in malloc (/home/goodmow/Documents/Titan/benchmark/libming-048-address/obj-bc/bin/swftoperl+0x2e01ed)
+    #1 0x339ef4 in parseSWF_LINESTYLEARRAY /work/util/parser.c:684:25
+    #2 0x33b821 in parseSWF_SHAPEWITHSTYLE /work/util/parser.c:868:3
+    #3 0x343ad8 in parseSWF_DEFINESHAPE /work/util/parser.c:2235:3
+    #4 0x31ea93 in blockParse /work/util/blocktypes.c:145:14
+    #5 0x31e330 in readMovie /work/util/main.c:269:11
+    #6 0x31d76d in main /work/util/main.c:354:2
+    #7 0x7c439a629d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16
+
+Direct leak of 960 byte(s) in 1 object(s) allocated from:
+    #0 0x2e0509 in realloc (/home/goodmow/Documents/Titan/benchmark/libming-048-address/obj-bc/bin/swftoperl+0x2e0509)
+    #1 0x33ba50 in parseSWF_SHAPEWITHSTYLE /work/util/parser.c:882:49
+    #2 0x343ad8 in parseSWF_DEFINESHAPE /work/util/parser.c:2235:3
+    #3 0x31ea93 in blockParse /work/util/blocktypes.c:145:14
+    #4 0x31e330 in readMovie /work/util/main.c:269:11
+    #5 0x31d76d in main /work/util/main.c:354:2
+    #6 0x7c439a629d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16
+
+Direct leak of 96 byte(s) in 1 object(s) allocated from:
+    #0 0x2e0362 in calloc (/home/goodmow/Documents/Titan/benchmark/libming-048-address/obj-bc/bin/swftoperl+0x2e0362)
+    #1 0x33b4ed in parseSWF_SHAPE /work/util/parser.c:845:25
+    #2 0x343987 in parseSWF_DEFINEMORPHSHAPE2 /work/util/parser.c:2223:3
+    #3 0x31ea93 in blockParse /work/util/blocktypes.c:145:14
+    #4 0x31e330 in readMovie /work/util/main.c:269:11
+    #5 0x31d76d in main /work/util/main.c:354:2
+    #6 0x7c439a629d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16
+
+Direct leak of 96 byte(s) in 1 object(s) allocated from:
+    #0 0x2e0362 in calloc (/home/goodmow/Documents/Titan/benchmark/libming-048-address/obj-bc/bin/swftoperl+0x2e0362)
+    #1 0x33b4ed in parseSWF_SHAPE /work/util/parser.c:845:25
+    #2 0x34393a in parseSWF_DEFINEMORPHSHAPE2 /work/util/parser.c:2222:3
+    #3 0x31ea93 in blockParse /work/util/blocktypes.c:145:14
+    #4 0x31e330 in readMovie /work/util/main.c:269:11
+    #5 0x31d76d in main /work/util/main.c:354:2
+    #6 0x7c439a629d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16
+
+Direct leak of 41 byte(s) in 1 object(s) allocated from:
+    #0 0x2e01ed in malloc (/home/goodmow/Documents/Titan/benchmark/libming-048-address/obj-bc/bin/swftoperl+0x2e01ed)
+    #1 0x34f7db in readBytes /work/util/read.c:252:17
+    #2 0x349b0c in parseSWF_SYNCFRAME /work/util/parser.c:2965:3
+    #3 0x31ea93 in blockParse /work/util/blocktypes.c:145:14
+    #4 0x31e330 in readMovie /work/util/main.c:269:11
+    #5 0x31d76d in main /work/util/main.c:354:2
+    #6 0x7c439a629d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16
+
+Direct leak of 29 byte(s) in 1 object(s) allocated from:
+    #0 0x2e01ed in malloc (/home/goodmow/Documents/Titan/benchmark/libming-048-address/obj-bc/bin/swftoperl+0x2e01ed)
+    #1 0x34f7db in readBytes /work/util/read.c:252:17
+    #2 0x33bbbc in parseSWF_CHARACTERSET /work/util/parser.c:1468:3
+    #3 0x31ea93 in blockParse /work/util/blocktypes.c:145:14
+    #4 0x31e330 in readMovie /work/util/main.c:269:11
+    #5 0x31d76d in main /work/util/main.c:354:2
+    #6 0x7c439a629d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16
+
+Direct leak of 26 byte(s) in 1 object(s) allocated from:
+    #0 0x2e01ed in malloc (/home/goodmow/Documents/Titan/benchmark/libming-048-address/obj-bc/bin/swftoperl+0x2e01ed)
+    #1 0x34f7db in readBytes /work/util/read.c:252:17
+    #2 0x345bcc in parseSWF_FONTREF /work/util/parser.c:2495:3
+    #3 0x31ea93 in blockParse /work/util/blocktypes.c:145:14
+    #4 0x31e330 in readMovie /work/util/main.c:269:11
+    #5 0x31d76d in main /work/util/main.c:354:2
+    #6 0x7c439a629d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16
+
+Direct leak of 9 byte(s) in 1 object(s) allocated from:
+    #0 0x2e01ed in malloc (/home/goodmow/Documents/Titan/benchmark/libming-048-address/obj-bc/bin/swftoperl+0x2e01ed)
+    #1 0x34f7db in readBytes /work/util/read.c:252:17
+    #2 0x34e3d2 in parseSWF_DEFINEBINARYDATA /work/util/parser.c:3512:28
+    #3 0x31ea93 in blockParse /work/util/blocktypes.c:145:14
+    #4 0x31e330 in readMovie /work/util/main.c:269:11
+    #5 0x31d76d in main /work/util/main.c:354:2
+    #6 0x7c439a629d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16
+
+Indirect leak of 41448 byte(s) in 3 object(s) allocated from:
+    #0 0x2e0362 in calloc (/home/goodmow/Documents/Titan/benchmark/libming-048-address/obj-bc/bin/swftoperl+0x2e0362)
+    #1 0x339d28 in parseSWF_FILLSTYLEARRAY /work/util/parser.c:620:23
+    #2 0x339af5 in parseSWF_SHAPERECORD /work/util/parser.c:565:4
+    #3 0x33b9e6 in parseSWF_SHAPEWITHSTYLE /work/util/parser.c:878:10
+    #4 0x343ad8 in parseSWF_DEFINESHAPE /work/util/parser.c:2235:3
+    #5 0x31ea93 in blockParse /work/util/blocktypes.c:145:14
+    #6 0x31e330 in readMovie /work/util/main.c:269:11
+    #7 0x31d76d in main /work/util/main.c:354:2
+    #8 0x7c439a629d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16
+
+Indirect leak of 3492 byte(s) in 3 object(s) allocated from:
+    #0 0x2e01ed in malloc (/home/goodmow/Documents/Titan/benchmark/libming-048-address/obj-bc/bin/swftoperl+0x2e01ed)
+    #1 0x339ef4 in parseSWF_LINESTYLEARRAY /work/util/parser.c:684:25
+    #2 0x339b09 in parseSWF_SHAPERECORD /work/util/parser.c:567:4
+    #3 0x33b9e6 in parseSWF_SHAPEWITHSTYLE /work/util/parser.c:878:10
+    #4 0x343ad8 in parseSWF_DEFINESHAPE /work/util/parser.c:2235:3
+    #5 0x31ea93 in blockParse /work/util/blocktypes.c:145:14
+    #6 0x31e330 in readMovie /work/util/main.c:269:11
+    #7 0x31d76d in main /work/util/main.c:354:2
+    #8 0x7c439a629d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16
+
+SUMMARY: AddressSanitizer: 225899 byte(s) leaked in 99 allocation(s).
+
+### PoC
+

@@ -15,7 +15,7 @@ for i in $(seq 130 255); do
     num=$(printf "%06d" "$i")
     echo "正在处理文件: $num"
     # 构建文件路径模式
-    pre_out="/home/xk/Documents/Titan/benchmark/libming-048-address/util/obj-bc/bin/fuzz_out"
+    pre_out="/home/goodmow/Documents/Titan/benchmark/libming-048-address/util/obj-bc/bin/fuzz_out"
     crash_file_pattern=$pre_out"/crashes/id:$num*"
     for crash_file in $crash_file_pattern; do
         # 查找并处理所有匹配的文件

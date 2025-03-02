@@ -1,0 +1,28 @@
+
+### Description
+An out-of-memory error in the parseABC_NS_SET_INFO function of libming v0.4.8, when attempting to allocate a large block of memory during the parsing of ABC (ActionScript Bytecode) data, can lead to potential Denial of Service (DoS) attacks due to allocator exhaustion, affecting the stability and availability of systems processing SWF files with this bytecode.
+
+### Environment
+Ubuntu 20.04, 64 bit
+libming-v0.4.8
+
+### ASAN report
+
+=================================================================
+==3403034==ERROR: AddressSanitizer: allocator is out of memory trying to allocate 0x156263c430 bytes
+    #0 0x2e006d in malloc (/home/goodmow/Documents/Titan/benchmark/libming-048-address/obj-bc/bin/swftocxx+0x2e006d)
+    #1 0x34ac09 in parseABC_NS_SET_INFO /work/util/parser.c:3081:15
+    #2 0x34b999 in parseABC_CONSTANT_POOL /work/util/parser.c:3195:5
+    #3 0x34d6a0 in parseABC_FILE /work/util/parser.c:3430:3
+    #4 0x34e13a in parseSWF_DOABC /work/util/parser.c:3485:3
+    #5 0x31ec43 in blockParse /work/util/blocktypes.c:145:14
+    #6 0x31e4e0 in readMovie /work/util/main.c:269:11
+    #7 0x31d91d in main /work/util/main.c:354:2
+    #8 0x7f7408c29d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16
+
+==3403034==HINT: if you don't care about these errors you may set allocator_may_return_null=1
+
+
+### PoC
+
+用英文，类似于A memory leak has been identified in the parseSWF_FILTERLIST function in util/parser.c of libming v0.4.8. The function allocates memory for filter lists but fails to provide any deallocation mechanism, resulting in memory leaks when processing SWF files with filter lists.
