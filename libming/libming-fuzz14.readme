@@ -1,10 +1,6 @@
+# bug14
 ### Description
-
-
-
-### Environment
-Ubuntu 20.04, 64 bit
-libming-v0.4.8
+A segmentation fault (SEGV) in the decompileDUPLICATECLIP function of libming v0.48 is triggered by a READ memory access to an invalid address pointing to the zero page. This issue occurs during the decompilation process of SWF files, specifically when handling DUPLICATECLIP actions.
 
 ### ASAN report
 
@@ -32,3 +28,5 @@ SUMMARY: AddressSanitizer: SEGV /work/util/decompile.c:380:22 in getString
 
 ### PoC
 
+
+https://github.com/goodmow/PoC/blob/main/libming/poc14

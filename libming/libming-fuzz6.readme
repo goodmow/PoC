@@ -1,11 +1,12 @@
+
+# bug6
+
 ### Description
 An out-of-memory error occurs in the parseABC_STRING_INFO function of libming v0.48 when attempting to allocate a large block of memory while parsing ABC (ActionScript Bytecode) data. This issue arises during the processing of SWF files containing such bytecode, leading to allocator exhaustion. The failure to manage memory allocation effectively can result in the application aborting and may cause Denial of Service (DoS)
 
 
 
-### Environment
-Ubuntu 20.04, 64 bit
-libming-v0.4.8
+
 
 =================================================================
 ==790345==ERROR: AddressSanitizer: allocator is out of memory trying to allocate 0x743feb5c6 bytes
@@ -26,3 +27,4 @@ SUMMARY: AddressSanitizer: out-of-memory (/home/goodmow/Documents/Titan/benchmar
 
 ### PoC
 
+https://github.com/goodmow/PoC/blob/main/libming/poc6

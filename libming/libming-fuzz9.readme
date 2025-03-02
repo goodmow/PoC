@@ -1,10 +1,9 @@
+# bug9
 ### Description
 A segmentation fault (SEGV) in the decompileSETVARIABLE function of libming v0.48 is triggered by a READ memory access to an invalid address pointing to the zero page. This issue occurs during the decompilation process of SWF files, specifically when handling SETVARIABLE actions.
 
 
-### Environment
-Ubuntu 20.04, 64 bit
-libming-v0.4.8
+
 
 ### ASAN report
 
@@ -30,3 +29,5 @@ SUMMARY: AddressSanitizer: SEGV /work/util/decompile.c:457:22 in getName
 ==1456649==ABORTING
 ### PoC
 
+
+https://github.com/goodmow/PoC/blob/main/libming/poc9

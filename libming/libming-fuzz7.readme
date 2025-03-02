@@ -1,10 +1,10 @@
+# bug7
+
 ### Description
 A memory leak in the parseSWF_MORPHLINESTYLES function of libming v0.48 occurs due to improper handling of memory allocation, resulting in a direct memory leak during the parsing of SWF files. 
 
 
-### Environment
-Ubuntu 20.04, 64 bit
-libming-v0.4.8
+
 
 ### ASAN report
 
@@ -146,3 +146,4 @@ SUMMARY: AddressSanitizer: 225899 byte(s) leaked in 99 allocation(s).
 
 ### PoC
 
+https://github.com/goodmow/PoC/blob/main/libming/poc7
